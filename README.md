@@ -8,7 +8,7 @@ Direção para curso de inverno
 
 ### 1.1 Conda
 
-### vá até o site do Anaconda:[https://www.anaconda.com/download/success]
+### vá até o site do [Anaconda](https://www.anaconda.com/download/success)
 
 ```
 bash Anaconda3-2025.06-0-Linux-x86_64.sh
