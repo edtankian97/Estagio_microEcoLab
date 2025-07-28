@@ -8,7 +8,7 @@ Direção para curso de inverno
 
 ### 1.1 Conda
 
-### vá até o site do [Anaconda]([https://www.anaconda.com/download/success](https://www.anaconda.com/docs/getting-started/miniconda/install#linux-terminal-installer)
+### vá até o site do [Anaconda](https://www.anaconda.com/download/success](https://www.anaconda.com/docs/getting-started/miniconda/install#linux-terminal-installer)
 
 ```
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
