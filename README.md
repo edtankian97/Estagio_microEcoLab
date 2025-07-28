@@ -34,6 +34,7 @@ conda install bioconda::mafft
 conda install bioconda::cd-hit
 conda install -c conda-forge ncbi-datasets-cli
 conda install bioconda::hmmer
+conda install -c bioconda phylophlan
 ```
 
 ##1.2 CD_HIT
@@ -42,7 +43,6 @@ conda install bioconda::hmmer
 
 ```
 cd-hit --help
-
 ```
 
 ### [comandos](https://www.bioinformatics.org/cd-hit/cd-hit-user-guide) que vamos usar
@@ -50,7 +50,6 @@ cd-hit --help
 mkdir cd_hit_results
 cd-hit -i PATH/TO/OUTPUT/FILE/[NAME_OF_INPUT_FILE] -o [output_file_name]  -c 1.00 -n 5
 mv [output_file_name] ./cd_hit_results
-
 ```
 ### cansativo fazer um por um, não é?! Então, vamos aprender a fazer isso de maneira mais automatizada
 ```
@@ -140,9 +139,14 @@ blastp -h
 blastp
 blastp -db ./banco_blast/banco_blast -query ./ncbi_dataset/data/GCF_000689235.1_renamed.faa -out blast_CMP_result  -outfmt "6  qseqid sseqid qlen qstart qend evalue bitscore length pident ppos"
 ```
+### vamos adicionar cabeçalho ao arquivo
+```
+HEADER="qseqid\tsseqid\tqlen\tqstart\tqend\tevalue\tbitscore\tlength\tpident\tppos"
+cat blast_CMP_result >> new_file.tsv
+```
+
 ### tarefa - fazer isso para vários input
 ```
-
+nano blast_data.sh
+bash blast_data.sh
 ```
-
-
