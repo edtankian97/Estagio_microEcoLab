@@ -150,3 +150,64 @@ cat blast_CMP_result >> new_file.tsv
 nano blast_data.sh
 bash blast_data.sh
 ```
+
+### Vamos preparar os resultados do HMMER
+### Primeiro, vamos concatenar os resultados do coverage
+```
+cat *_coverage > all_coverage
+```
+
+### Siga a etapa do R para cobertura e filtre no bash, os arquivos a serem submetidos
+```
+for file in $(cat ./CMP_complete_cover_filter_40.tsv); do mv "$file" ./filter_cover_CMP/; done
+cd filter_cover_CMP
+cat CMP*output > all_CMP_output.tsv
+sed -i '/#/d' all_CMP_output.tsv
+sed  's/ \{1,\}/\t/g' all_CMP_output.tsv > file_output_CMP.tsv
+```
+
+### Faça a mesma etapa, só que para a sialiltransferase
+### Siga o passo para filtragem do R por e-value e bit-score
+
+
+### Agora que você descobriu quem tem o passo de sialilação, vamos fazer a árvore com phylophlan. 
+
+### Primeiro vamos baixar o banco de dados do phylophlan
+```
+cd proteins/
+mkdir protein_tree && cd protein_tree
+mkdir phylophlan_database && cd phylophlan_database
+wget https://zenodo.org/record/4005620/files/phylophlan.tar?download=1
+tar -xf phylophlan.tar
+bunzip2 -k phylophlan/phylophlan.bz2
+cd ..
+
+```
+### Vamos configurar a forma como vamos fazer a análise
+
+```
+phylophlan_write_config_file.py --db_aa diamond --map_aa diamond --msa mafft \
+--trim trimal --tree1 fasttree --tree2 raxml -o genome_estagio_config.cfg \
+--db_type a
+```
+
+### Rode a análise (copie e cole o script abaixo e coloque o arquivo do script em um diretório abaixo do diretório "proteins")
+```
+#! bin/bash
+
+
+phylophlan -i ./proteins --db_type a -d phylophlan --databases_folder ./proteins/protein_tree/phylophlan_database/ --diversity low --accurate -f ./proteins/protein_tree/genome_ed_config.cfg -o ./proteins/protein_tree/phylo_result/  --nproc 15  --verbose 2>&1 | tee ./proteins/protein_tree/logs/phylophlan_output_phylophlan.log
+```
+
+### Pegue o resultado da árvore e submeta no iTOL
+
+### Tarefa - anotação de árvore: 1. quem é Gram positiva e Gram negativa; 2. Virulência; 3. Presença ou ausência de sialilação
+
+### Passo para virulência: Fazer manualmente ou por análise de bioinfo (devemos baixar os genomas das bactérias)
+```
+conda install -c conda-forge -c bioconda -c defaults abricate
+
+abricate ./genomes_unique/ --db vfdb --csv --minid 70 --mincov 60 > out_70id_60cov.csv
+mv out_70id_60cov.csv ../plots_data/itol/
+
+```
