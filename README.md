@@ -211,3 +211,4 @@ abricate ./genomes_unique/ --db vfdb --csv --minid 70 --mincov 60 > out_70id_60c
 mv out_70id_60cov.csv ../plots_data/itol/
 
 ```
+https://github.com/biobakery/phylophlan/wiki#databases
