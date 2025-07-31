@@ -179,7 +179,7 @@ mkdir protein_tree && cd protein_tree
 mkdir phylophlan_database && cd phylophlan_database
 wget https://zenodo.org/record/4005620/files/phylophlan.tar?download=1
 tar -xf phylophlan.tar
-bunzip2 -k phylophlan/phylophlan.bz2
+bunzip2 -k phylophlan/phylophlan.faa.bz2
 cd ..
 
 ```
